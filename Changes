@@ -1,0 +1,40 @@
+1.01.1: Mon Jun 11 2007
+   - I removed a &wash regex
+
+1.01:  Sun Feb 26 07:56:47 EST 2006
+   - jettero fixed several compile time bugs
+
+1:  Tue Feb 14 17:54:19 EST 2006
+   - jettero added a $|=1 to einfon ... cuz c'mon
+
+0.99.3:  Mon Feb  6 18:24:10 EST 2006
+   - jettero have added einfon
+   - jettero fixed a wrong subtraction on [ ok ] placement
+     ... how did I miss that before?
+
+0.99.2:  Mon Jan 30 15:51:09 EST 2006
+   - jettero found yet another bug between the interaction
+     of the shell version and the perl version
+
+0.99.1:  Mon Jan 30 15:44:15 EST 2006
+   - jettero removed some debugging code
+
+0.99:  Mon Jan 30 15:17:05 EST 2006
+   - jettero made Term::GF understand the shell
+     RC_DEFAULT_INDENT and RC_INDENTATION, however you must
+     export them wherever you fork to perl ... and perl
+     cannot modify them back up to the shell. So maybe not
+     so helpful, but complete feeling
+
+0.98:  Fri Jan 27 16:28:10 EST 2006
+   - jettero added minor changes to eend, such as $_ use and
+     argument passthrough...
+
+0.97.1:  Thu Jan 26 17:15:05 EST 2006
+   - jettero made the OK an ok instead
+
+0.97:  Thu Jan 26 15:53:17 EST 2006
+   - jettero added eindent and eoutdent
+
+0.95:  Thu Jan 26 12:00:ish EST 2006
+   - jettero first built this module

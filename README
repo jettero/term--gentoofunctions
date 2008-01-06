@@ -1,0 +1,17 @@
+
+Term::GentooFunctions
+=============
+
+Provides gentoo's einfo, ewarn, eerror, ebegin and eend.
+
+
+use Term::GentooFunctions qw(:all)
+
+einfo "this is kinda neat...";
+
+ebegin "I hope this works...";
+
+....
+
+eend $truefalse; # the result is backwards of gentoo; ie, 0 is bad, 1 is good.
+
