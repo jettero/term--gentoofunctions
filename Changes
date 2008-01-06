@@ -1,3 +1,8 @@
+1.01.3: Mon Jun 11 2007
+   - I updated the version and fixed a few things.
+     edie was missing from whatever I have on cpan so I needed a new version for:
+     "use Term::GentooFunctions 1.010_003 qw(:all);"
+
 1.01.1: Mon Jun 11 2007
    - I removed a &wash regex
 
