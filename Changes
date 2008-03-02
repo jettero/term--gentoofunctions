@@ -1,3 +1,6 @@
+1.01.4: Mon Jun 11 2007
+   - I added require 5.008 lines to the .PL and .pm
+
 1.01.3: Mon Jun 11 2007
    - I updated the version and fixed a few things.
      edie was missing from whatever I have on cpan so I needed a new version for:
