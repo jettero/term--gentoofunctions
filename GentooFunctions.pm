@@ -147,7 +147,7 @@ before you fork to perl.  Also, T::GF won't be able to modify the indent level i
 
 =head1 AUTHOR
 
-Paul Miller <paul@cpan.org>
+Paul Miller <jettero@cpan.org>
 
 I am using this software in my own projects...  If you find bugs, please
 please please let me know. :) Actually, let me know if you find it handy at
