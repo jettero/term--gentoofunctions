@@ -1,3 +1,6 @@
+1.2.0: Fri May 23 08:34:17 EDT 2008
+   - This can work under win32... code added
+
 1.1.7: Tue May 20 10:24:18 EDT 2008
    - People have told me that two dotted versions cause problems
      on CPAN.  It's true, and the leading zero on the second

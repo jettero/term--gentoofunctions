@@ -4,12 +4,18 @@ require 5.008;
 
 use strict;
 
+BEGIN {
+    eval "use Term::Size;";               my $old = $@;
+    eval "use Term::Size::Win32" if $old; my $new = $@;
+    die $old if $old and $new;
+    die $new if $new;
+}
+
 use Exporter;
-use Term::Size;
 use Term::ANSIColor qw(:constants);
 use Term::ANSIScreen qw(:cursor);
 
-our $VERSION = "1.1.7";
+our $VERSION = "1.1.9";
 our @EXPORT_OK = qw(einfo eerror ewarn ebegin eend eindent eoutdent einfon edie);
 our %EXPORT_TAGS = (all=>[@EXPORT_OK]);
 
