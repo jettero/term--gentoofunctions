@@ -15,7 +15,7 @@ use Exporter;
 use Term::ANSIColor qw(:constants);
 use Term::ANSIScreen qw(:cursor);
 
-our $VERSION = "1.1.9";
+our $VERSION = "1.2.0";
 our @EXPORT_OK = qw(einfo eerror ewarn ebegin eend eindent eoutdent einfon edie);
 our %EXPORT_TAGS = (all=>[@EXPORT_OK]);
 
@@ -89,7 +89,10 @@ sub ebegin {
 
 sub eend {
     my $res = (@_>0 ? shift : $_);
-    my ($columns, $rows) = Term::Size::chars *STDOUT{IO};
+    my ($columns, $rows) = eval 'Term::Size::chars *STDOUT{IO}';
+       ($columns, $rows) = eval 'Term::Size::Win32::chars *STDOUT{IO}' if $@;
+
+    die "couldn't find a term size function to use" if $@;
 
     print up(1), right($columns - 6), BOLD, BLUE, "[ ", 
         ($res ?  GREEN."ok" : RED."!!"), 
