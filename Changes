@@ -1,3 +1,6 @@
+1.2.0: Sat May 24 09:21:21 EDT 2008
+   - using version.pm as suggested by Andreas Koenig
+
 1.2.0: Fri May 23 08:34:17 EDT 2008
    - This can work under win32... code added
 
