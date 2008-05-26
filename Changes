@@ -1,3 +1,10 @@
+1.2.1: Mon May 26 15:58:50 EDT 2008
+   - I might as well do a new version of everything using
+     version.pm while I wait for all my CPAN deletes to go
+     through.  I just discovered that version.pm doesn't/didn't
+     go core until perl 5.9...  I really wish I'd have prereqed
+     it everywhere I used it, but I didn't.  *sigh*
+
 1.2.0: Sat May 24 09:21:21 EDT 2008
    - using version.pm as suggested by Andreas Koenig
 

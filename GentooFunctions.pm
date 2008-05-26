@@ -16,7 +16,7 @@ use Term::ANSIColor qw(:constants);
 use Term::ANSIScreen qw(:cursor);
 
 use version;
-our $VERSION = version->new("1.2.0")->numify;
+our $VERSION = qv("1.2.1");
 our @EXPORT_OK = qw(einfo eerror ewarn ebegin eend eindent eoutdent einfon edie);
 our %EXPORT_TAGS = (all=>[@EXPORT_OK]);
 
