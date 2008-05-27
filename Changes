@@ -1,3 +1,7 @@
+1.2.2: Tue May 27 12:06:23 EDT 2008
+   - (wow, use version has to be on the same line as our $VERSION
+      for older EUMM)
+
 1.2.1: Mon May 26 15:58:50 EDT 2008
    - I might as well do a new version of everything using
      version.pm while I wait for all my CPAN deletes to go
