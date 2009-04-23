@@ -165,7 +165,7 @@ all.  Half the fun of releasing this stuff is knowing that people use it.
 
 =head1 COPYRIGHT
 
-Copyright (c) 2007 Paul Miller -- LGPL [attached]
+Copyright (c) 2007 Paul Miller
 
 =head1 SEE ALSO
 
