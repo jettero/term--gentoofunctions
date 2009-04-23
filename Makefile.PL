@@ -1,6 +1,6 @@
 # vi:set syntax=perl:
 
-require 5.008;
+require 5.006001;
 
 use strict;
 use ExtUtils::MakeMaker;
