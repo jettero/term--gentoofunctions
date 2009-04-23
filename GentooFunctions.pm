@@ -1,6 +1,6 @@
 package Term::GentooFunctions;
 
-require 5.008;
+require 5.006001;
 
 use strict;
 
@@ -15,7 +15,7 @@ use Exporter;
 use Term::ANSIColor qw(:constants);
 use Term::ANSIScreen qw(:cursor);
 
-use version; our $VERSION = qv("1.2.2");
+our $VERSION = 1.3;
 
 our @EXPORT_OK = qw(einfo eerror ewarn ebegin eend eindent eoutdent einfon edie);
 our %EXPORT_TAGS = (all=>[@EXPORT_OK]);
@@ -101,72 +101,3 @@ sub eend {
 
     $res;
 }
-
-__END__
-# Below is stub documentation for your module. You better edit it!
-
-=head1 NAME
-
-    Term::GentooFunctions - provides gentoo's einfo, ewarn, eerror, ebegin and eend.
-
-=head1 SYNOPSIS
-
-    use Term::GentooFunctions qw(:all)
-
-    einfo "this is kinda neat...";
-
-    ebegin "I hope this works...";
-     ....
-    eend $truefalse; # the result is backwards of gentoo; ie, 0 is bad, 1 is good.
-
-=head1 prints
-
-einfo, ewarn, and error show informative lines
-
-=head1 ebegin and eend
-
-ebegin and eend show the beginning and ends of things.
-
-Additionally, eend returns the result passed in for handy returns at the bottom of functions...
-
-    sub eg {
-        eend 0; # eg now returns a false!!  Huzzah!
-    }
-
-Lastly, eend will use $_ if it is not passed any arguments.
-
-=head1 indents
-
-you can also use eindent and eoutdent to show trees of things happening:
-
-einfo "something"
-eindent 
-einfo "something else" # indented
-eoutdent
-einfo "something else (again)" # un-dented
-
-=head1 bash
-
-BTW, Term::GentooFunctions will use RC_INDENTATION and RC_DEFAULT_INDENT from /sbin/functions.sh...  So you can eindent in a
-bash_script.sh and your perl_script.pl will use the indent level!  However, to get it to work you must 
-
-    export RC_INDENTATION RC_DEFAULT_INDENT 
-    
-before you fork to perl.  Also, T::GF won't be able to modify the indent level in a way that will propagate back up to bash
-(obviously).
-
-=head1 AUTHOR
-
-Paul Miller <jettero@cpan.org>
-
-I am using this software in my own projects...  If you find bugs, please
-please please let me know. :) Actually, let me know if you find it handy at
-all.  Half the fun of releasing this stuff is knowing that people use it.
-
-=head1 COPYRIGHT
-
-Copyright (c) 2007 Paul Miller
-
-=head1 SEE ALSO
-
-Term::Size, Term::ANSIColor, Term::ANSIScreen
