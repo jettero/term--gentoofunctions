@@ -19,4 +19,16 @@ WriteMakefile(
         'Term::ANSIScreen' => 0,
         version => 0,
     },
+
+    ($ExtUtils::MakeMaker::VERSION ge '6.48'? 
+        (MIN_PERL_VERSION => 5.006001,
+            META_MERGE => {
+                keywords => [qw(einfo ebegin eend)],
+                resources=> {
+                    repository => 'http://github.com/jettero/term--gentoofunctions',
+                },
+            },
+
+        LICENSE	=> 'LGPL',
+    ) : ()),
 );
