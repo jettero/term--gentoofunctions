@@ -5,3 +5,4 @@ Makefile.PL
 MANIFEST
 README
 t/01_load_them.t
+t/05_execute_things.t
