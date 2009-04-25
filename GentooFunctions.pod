@@ -1,6 +1,6 @@
 =head1 NAME
 
-    Term::GentooFunctions - provides gentoo's einfo, ewarn, eerror, ebegin and eend.
+Term::GentooFunctions - provides gentoo's einfo, ewarn, eerror, ebegin and eend.
 
 =head1 SYNOPSIS
 
