@@ -40,16 +40,16 @@ You can also use C<eindent> and C<eoutdent> to show trees of things happening:
 
 =head1 bash
 
-BTW, L<Term::GentooFunctions> will use C<RC_INDENTATION> and
-C<RC_DEFAULT_INDENT> from /sbin/functions.sh...  So you can C<eindent> in a
-bash_script.sh and your perl_script.pl will use the indent level!  However, to
-get it to work you must ...
+L<Term::GentooFunctions> will use C<RC_INDENTATION> and C<RC_DEFAULT_INDENT>
+from Gentoo's /sbin/functions.sh.  So you can C<eindent> in a bash_script.sh and
+your perl_script.pl will use the indent level!  However, to get it to work you
+must first export them to your perl scripts:
 
     export RC_INDENTATION RC_DEFAULT_INDENT 
     
-... before you fork to perl.  Also, L<Term::GentooFunctions> won't be able to
-modify the indent level in a way that will propagate back up to bash
-(obviously).
+L<Term::GentooFunctions> will not be able to modify the indent level in a way
+that will propagate back up to bash -- that would technically be impossible
+through environment variables.
 
 =head1 AUTHOR
 
