@@ -30,34 +30,32 @@ BEGIN {
 }
 
 
-1;
-
-sub edie {
-    &eerror($_) for @_;
-    &eend(0);
+sub edie($) {
+    eerror($_);
+    eend(0);
     exit 1;
 }
 
-sub einfon {
-    my $msg = &wash(shift);
+sub einfon($) {
+    my $msg = wash(shift);
 
     local $| = 1;
     print " ", BOLD, GREEN, "*", RESET, $msg;
 }
 
-sub eindent  {
+sub eindent()  {
     my $i = shift || $ENV{RC_DEFAULT_INDENT};
 
     $ENV{RC_INDENTATION} .= " " x $i;
 }
 
-sub eoutdent {
+sub eoutdent() {
     my $i = shift || $ENV{RC_DEFAULT_INDENT};
 
     $ENV{RC_INDENTATION} =~ s/ // for 1 .. $i;
 }
 
-sub wash {
+sub wash($) {
     my $msg = shift;
        $msg =~ s/[\r\n]//sg;
        $msg =~ s/^\s+//s;
@@ -66,30 +64,31 @@ sub wash {
     return "$ENV{RC_INDENTATION} $msg";
 }
 
-sub einfo {
-    my $msg = &wash(shift);
+sub einfo($) {
+    my $msg = wash(shift);
 
     print " ", BOLD, GREEN, "*", RESET, "$msg\n";
 }
 
-sub eerror {
-    my $msg = &wash(shift);
+sub ebegin($) {
+    goto &einfo;
+}
+
+sub eerror($) {
+    my $msg = wash(shift);
 
     print " ", BOLD, RED, "*", RESET, "$msg\n";
 }
 
-sub ewarn {
-    my $msg = &wash(shift);
+sub ewarn($) {
+    my $msg = wash(shift);
 
     print " ", BOLD, YELLOW, "*", RESET, "$msg\n";
 }
 
-sub ebegin {
-    &einfo(@_);
-}
-
-sub eend {
+sub eend(@) {
     my $res = (@_>0 ? shift : $_);
+
     my ($columns, $rows) = eval 'Term::Size::chars *STDOUT{IO}';
        ($columns, $rows) = eval 'Term::Size::Win32::chars *STDOUT{IO}' if $@;
 
