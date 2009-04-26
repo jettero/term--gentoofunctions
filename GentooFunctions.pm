@@ -117,6 +117,7 @@ sub edo($&) {
 
     eoutdent if $do_depth>1;
     $do_depth --;
+    eend 1;
 
     return @cr if wantarray;
     return $cr;
