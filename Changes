@@ -1,7 +1,7 @@
 1.3500: Sun Apr 26 08:24:22 EDT 2009
    - added edo()
 
-1.3020: Sat Apr 25 12:47:53 EDT 2009
+1.302: Sat Apr 25 12:47:53 EDT 2009
    - very minor doc fixes
    - bumped the version for perl 5.6.1
 
