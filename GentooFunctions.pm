@@ -34,7 +34,7 @@ sub edie(@) {
     my $msg = (@_>0 ? shift : $_);
     eerror($msg);
     eend(0);
-    exit 1;
+    exit 0x65;
 }
 
 sub einfon($) {

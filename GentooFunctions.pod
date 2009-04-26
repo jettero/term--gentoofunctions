@@ -33,7 +33,7 @@ C<eend> will use L<$_|perlvar/_> if it is not passed any arguments.
 
 =head1 DEATH
 
-Print an error with L<eerror|/PRINTS> and L<exit|perlfunc/exit>(1).
+Print an error with L<eerror|/PRINTS> and L<exit|perlfunc/exit>(0x65).
 
 =head1 INDENT
 
