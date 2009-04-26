@@ -12,25 +12,33 @@ Term::GentooFunctions - provides gentoo's einfo, ewarn, eerror, ebegin and eend.
      ....
     eend $truefalse; # the result is backwards of gentoo; ie, 0 is bad, 1 is good.
 
-=head1 prints
+=head1 PRINTS
 
-C<einfo>, C<ewarn>, and error show informative lines.
+C<einfo>, C<ewarn>, and C<eerror> show informative lines with stars at the
+beginning colored green, yellow, and red (respectively).
 
-=head1 ebegin and eend
+=head1 BOOKENDS
 
-C<ebegin> and C<eend> show the beginning and ends of things.
+C<ebegin> and C<eend> show the beginning and ends of things. C<ebegin> also
+prints the given error message using L<einfo|/PRINTS>.
 
-Additionally, C<eend> returns the result passed in for handy returns at the bottom of functions...
+C<eend> returns the result passed in for handy returns at the bottom of
+functions...
 
     sub eg {
         eend 0; # eg now returns a false!!  Huzzah!
     }
 
-Lastly, C<eend> will use C<$_> if it is not passed any arguments.
+C<eend> will use L<$_|perlvar/_> if it is not passed any arguments.
 
-=head1 indents
+=head1 DEATH
 
-You can also use C<eindent> and C<eoutdent> to show trees of things happening:
+Print an error with L<eerror|/PRINTS> and L<exit|perlfunc/exit>(1).
+
+=head1 INDENT
+
+You can also use C<eindent> and C<eoutdent> to show trees of things happening,
+example:
 
     einfo "something"
     eindent 
@@ -38,7 +46,7 @@ You can also use C<eindent> and C<eoutdent> to show trees of things happening:
     eoutdent
     einfo "something else (again)" # un-dented
 
-=head1 edo
+=head1 DO
 
 C<edo> is an extra magic function that aggregates several of the functions
 above:
@@ -50,9 +58,9 @@ above:
 
     } or edie "problem listing things: $EDO_ERR";
 
-C<edo> handles C<ebegin> and C<eend> automatically and catches errors for
-optional C<edie> after execution.  Nested C<edo> functions will automatically
-indent as well:
+C<edo> handles L<ebegin|/BOOKENDS> and L<eend|/BOOKENDS> automatically and
+catches errors for optional L<edie|/DEATH> after execution.  Nested C<edo>
+functions will automatically L<eindent|/INDENT> as well:
 
     edo test1 => sub {
         edo test2 => sub {
@@ -62,15 +70,16 @@ indent as well:
 
     } or edie $EDO_ERR;
 
-Minor caveat: C<edie> isn't catchable since it calls L<exit>, therefore, inner
-death should use L<die> instead.
+Minor caveat: L<edie|/DEATH> isn't catchable (see: L<eval|perlfunc/eval>) since
+it calls L<exit|perlfunc/exit>, therefore, inner death(s) should use
+L<die|perlfunc/die> instead of L<edie|/DEATH>.
 
-=head1 bash
+=head1 SHELL
 
 L<Term::GentooFunctions> will use C<RC_INDENTATION> and C<RC_DEFAULT_INDENT>
-from Gentoo's /sbin/functions.sh.  So you can C<eindent> in a bash_script.sh and
-your perl_script.pl will use the indent level!  However, to get it to work you
-must first export them to your perl scripts:
+from Gentoo's /sbin/functions.sh.  So you can L<eindent|/INDENT> in a
+bash_script.sh and your perl_script.pl will use the indent level!  However, to
+get it to work you must first export them to your perl scripts:
 
     export RC_INDENTATION RC_DEFAULT_INDENT 
     
