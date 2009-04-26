@@ -38,6 +38,33 @@ You can also use C<eindent> and C<eoutdent> to show trees of things happening:
     eoutdent
     einfo "something else (again)" # un-dented
 
+=head1 edo
+
+C<edo> is an extra magic function that aggregates several of the functions
+above:
+
+    use IPC::System::Simple qw(systemx);
+    edo "removing file" => sub {
+
+        systemx(qw(rm file));
+
+    } or edie "problem listing things: $EDO_ERR";
+
+C<edo> handles C<ebegin> and C<eend> automatically and catches errors for
+optional C<edie> after execution.  Nested C<edo> functions will automatically
+indent as well:
+
+    edo test1 => sub {
+        edo test2 => sub {
+            systemx(qw(rm file));
+
+        } or die $EDO_ERR;
+
+    } or edie $EDO_ERR;
+
+Minor caveat: C<edie> isn't catchable since it calls L<exit>, therefore, inner
+death should use L<die> instead.
+
 =head1 bash
 
 L<Term::GentooFunctions> will use C<RC_INDENTATION> and C<RC_DEFAULT_INDENT>
