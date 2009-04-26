@@ -17,9 +17,8 @@ use Term::ANSIScreen qw(:cursor);
 
 our $VERSION = '1.3500';
 
-our @EXPORT_OK = qw(einfo eerror ewarn ebegin eend eindent eoutdent einfon edie edo $EDO_ERR);
+our @EXPORT_OK = qw(einfo eerror ewarn ebegin eend eindent eoutdent einfon edie edo);
 our %EXPORT_TAGS = (all=>[@EXPORT_OK]);
-our $EDO_ERR;
 
 use base qw(Exporter);
 
@@ -113,8 +112,7 @@ sub edo($&) {
     ebegin $begin_msg;
 
     my $r = eval { $code->(); 1 };
-    $EDO_ERR = $@; # impossible to propagate $@ to the caller's package
-    eend $r;
+    edie $@ unless $r;
 
     eoutdent if $do_depth>1;
     $do_depth --;

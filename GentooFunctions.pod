@@ -56,7 +56,7 @@ above:
 
         systemx(qw(rm file));
 
-    } or edie "problem listing things: $EDO_ERR";
+    };
 
 C<edo> handles L<ebegin|/BOOKENDS> and L<eend|/BOOKENDS> automatically and
 catches errors for optional L<edie|/DEATH> after execution.  Nested C<edo>
@@ -66,13 +66,12 @@ functions will automatically L<eindent|/INDENT> as well:
         edo test2 => sub {
             systemx(qw(rm file));
 
-        } or die $EDO_ERR;
-
-    } or edie $EDO_ERR;
+        }
+    }
 
 Minor caveat: L<edie|/DEATH> isn't catchable (see: L<eval|perlfunc/eval>) since
 it calls L<exit|perlfunc/exit>, therefore, inner death(s) should use
-L<die|perlfunc/die> instead of L<edie|/DEATH>.
+L<die|perlfunc/die> rather than L<edie|/DEATH>.
 
 =head1 SHELL
 
