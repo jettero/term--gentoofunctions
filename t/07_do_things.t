@@ -4,7 +4,7 @@ no warnings;
 use Test;
 use Term::GentooFunctions qw(:all);
 
-plan tests => (my $tests = 3);
+plan tests => (my $tests = 4);
 
 $SIG{PIPE} = sub { skip_all("received sig pipe") };
 open PIPE, "$^X test_scripts/makefile_rmfile.pl|" or skip_all("popen failure: $!");
@@ -19,6 +19,7 @@ $slurp =~ s/\e\[[\d;]*m//g;
 ok( $slurp =~ m/\* making/ );
 ok( $slurp =~ m/\*   rming/ );
 ok( $slurp =~ m/file or directory/ );
+ok( $slurp =~ m/x: 79/ );
 
 sub skip_all {
     warn " $_[0], skipping tests\n";
