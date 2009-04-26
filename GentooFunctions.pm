@@ -110,14 +110,16 @@ sub edo($&) {
     eindent if $do_depth>1;
 
     ebegin $begin_msg;
+    my ($cr, @cr);
 
-    my $r = eval { $code->(); 1 };
+    my $r = eval { if( wantarray ) { @cr = $code->() } else { $cr = $code->() } 1 };
     edie $@ unless $r;
 
     eoutdent if $do_depth>1;
     $do_depth --;
 
-    $r;
+    return @cr if wantarray;
+    return $cr;
 }
 
 
