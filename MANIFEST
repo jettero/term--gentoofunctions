@@ -7,3 +7,4 @@ README
 t/01_load_them.t
 t/05_execute_things.t
 t/07_do_things.t
+test_scripts/makefile_rmfile.pl
