@@ -1,3 +1,6 @@
+1.3501: Sun Apr 26 22:47:09 EDT 2009
+   - fixed bug shown in t/09 
+
 1.3501: Sun Apr 26 18:47:54 EDT 2009
    - grr, edo doesn't return arrays right, see t/09
 
