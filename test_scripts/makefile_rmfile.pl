@@ -7,12 +7,9 @@ use warnings;
 use Term::GentooFunctions qw(:all);
 
 edo "making file" => sub {
-    open OUT, ">file" or die $!; close OUT;
+    open OUT, ">file" or die "CREATE ERROR: $!"; close OUT;
 
-    edo "rming file" => sub { unlink "file" or die $! };
+    edo "rming file" => sub { unlink "file" or die "UNLINK ERROR: $!" };
 };
 
-my $x = edo "numeric test" => sub { 79 };
-einfo "x: $x";
-
-edo "rming file again (fail)" => sub { unlink "file" or die $! };
+edo "rming file again (fail)" => sub { unlink "file" or die "UNLINK ERROR: $!" };
