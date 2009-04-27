@@ -7,7 +7,7 @@ use warnings;
 use Term::GentooFunctions qw(:all);
 use Data::Dumper;
 
-my $r1 = edo "list2calar returns " => sub { return (1,2,3,4) };
+my $r1 = edo "list2sclr returns " => sub { return (1,2,3,4) };
 einfo Dumper(\$r1);
 
 my @r2 = edo "list2arr returns " => sub { return (1,2,3,4) };
