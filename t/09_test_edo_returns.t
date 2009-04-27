@@ -4,7 +4,7 @@ no warnings;
 use Test;
 use Term::GentooFunctions qw(:all);
 
-plan tests => (my $tests = 4);
+plan tests => (my $tests = 5);
 
 $SIG{PIPE} = sub { skip_all("received sig pipe") };
 open PIPE, "$^X test_scripts/test_edo_returns.pl|" or skip_all("popen failure: $!");
@@ -14,12 +14,18 @@ if( not $exit and $! == 0 ) {
     skip_all("pclose failure ($?)") if ($?>>8) != 0x65;
 }
 
-$slurp =~ s/\e\[[\d;]*m//g;
+$slurp =~ s/\e\[[\-\d;]*[ACm]//g;
+$slurp =~ s/(?:\s*\[\s+ok\s+\]\s*)//sg;
+$slurp =~ s/[\s\*]+\$VAR1\s+=\s+/: /sg;
 
-ok( $slurp =~ m/\* making/ );
-ok( $slurp =~ m/\*   rming/ );
-ok( $slurp =~ m/file or directory/ );
-ok( $slurp =~ m/x: 79/ );
+#use Data::Dump qw(dump);
+#die dump($slurp);
+die $slurp;
+
+#ok( $slurp =~ m/\* making/ );
+#ok( $slurp =~ m/\*   rming/ );
+#ok( $slurp =~ m/file or directory/ );
+#ok( $slurp =~ m/x: 79/ );
 
 sub skip_all {
     warn " $_[0], skipping tests\n";
@@ -28,15 +34,11 @@ sub skip_all {
 }
 
 __END__
-result when test created:
 
- * list2calar returns
- * $VAR1 = \4;
- * list2arr returns
- * $VAR1 = [];
- * arr2arr returns
- * $VAR1 = [];
- * list2hash returns
- * $VAR1 = {};
- * hash2hash returns
- * $VAR1 = {};
+result when test created:
+* list2calar returns: \4;
+* list2arr returns: [];
+* arr2arr returns: [];
+* list2hash returns: {};
+* hash2hash returns: {};
+
