@@ -17,15 +17,13 @@ if( not $exit and $! == 0 ) {
 $slurp =~ s/\e\[[\-\d;]*[ACm]//g;
 $slurp =~ s/(?:\s*\[\s+ok\s+\]\s*)//sg;
 $slurp =~ s/[\s\*]+\$VAR1\s+=\s+/: /sg;
+$slurp =~ s/[ \t]{2,}/ /g;
 
-#use Data::Dump qw(dump);
-#die dump($slurp);
-die $slurp;
-
-#ok( $slurp =~ m/\* making/ );
-#ok( $slurp =~ m/\*   rming/ );
-#ok( $slurp =~ m/file or directory/ );
-#ok( $slurp =~ m/x: 79/ );
+ok( $slurp =~ m/list2sclr.*\\4;/ );
+ok( $slurp =~ m/list2arr.*1,.*2,.*3,.*4/ );
+ok( $slurp =~ m/arr2arr.*1,.*2,.*3,.*4/ );
+ok( $slurp =~ m/list2hash.*1.*=.*2.*3.*=.*4/ );
+ok( $slurp =~ m/hash2hash.*1.*=.*2.*3.*=.*4/ );
 
 sub skip_all {
     warn " $_[0], skipping tests\n";
@@ -34,6 +32,12 @@ sub skip_all {
 }
 
 __END__
+result when edo fixed:
+* list2sclr returns: \4;
+* list2arr returns: [ 1, 2, 3, 4 ];
+* arr2arr returns: [ 1, 2, 3, 4 ];
+* list2hash returns: { '1' => 2, '3' => 4 };
+* hash2hash returns: { '1' => 2, '3' => 4 };
 
 result when test created:
 * list2calar returns: \4;
