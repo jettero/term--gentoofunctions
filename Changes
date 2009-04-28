@@ -1,3 +1,6 @@
+1.3501: Mon Apr 27 21:41:53 EDT 2009
+   - added another test... mystified by errors in git-svn-replay
+
 1.3501: Sun Apr 26 22:47:09 EDT 2009
    - fixed bug shown in t/09 
 
