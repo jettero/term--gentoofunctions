@@ -16,9 +16,19 @@ if( not $exit and $! == 0 ) {
 
 $slurp =~ s/\e\[[\d;]*m//g;
 
-ok( $slurp =~ m/\* making.*ok/s );
-ok( $slurp =~ m/\*   rming.*ok/s );
-ok( $slurp =~ m/UNLINK ERROR/ );
+ok( $slurp =~ m/\*\s+making.*ok/s ) or dslurp();
+ok( $slurp =~ m/\*\s+rming.*ok/s ) or dslurp();
+ok( $slurp =~ m/UNLINK ERROR/ ) or dslurp();
+
+sub dslurp() {
+    our $x ++;
+    return unless $x == 1;
+    my $s = $slurp;
+       $s =~ s/([^[:print:]])/'\x' . unpack("H*", $1)/eg;
+       $s =~ s/\n/\\n/g;
+
+    warn " slrup: $s";
+}
 
 sub skip_all {
     warn " $_[0], skipping tests\n";
