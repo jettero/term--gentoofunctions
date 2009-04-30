@@ -14,6 +14,7 @@ if( not $exit and $! == 0 ) {
     skip_all("pclose failure ($?)") if ($?>>8) != 0x65;
 }
 
+$slurp =~ s/\s+/ /g;
 $slurp =~ s/\e\[[\-\d;]*[ACm]//g;
 $slurp =~ s/(?:\s*\[\s+ok\s+\]\s*)//sg;
 $slurp =~ s/[\s\*]+\$VAR1\s+=\s+/: /sg;

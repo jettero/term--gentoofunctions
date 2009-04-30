@@ -15,7 +15,7 @@ use Exporter;
 use Term::ANSIColor qw(:constants);
 use Term::ANSIScreen qw(:cursor);
 
-our $VERSION = '1.3501';
+our $VERSION = '1.3505';
 
 our @EXPORT_OK = qw(einfo eerror ewarn ebegin eend eindent eoutdent einfon edie edo);
 our %EXPORT_TAGS = (all=>[@EXPORT_OK]);
@@ -58,10 +58,9 @@ sub eoutdent() {
 
 sub wash($) {
     my $msg = shift;
-       $msg =~ s/[\r\n]//sg;
        $msg =~ s/^\s+//s;
-     # $msg =~ s/\s+$//s;  # NOTE: do not wash this off.  When we call einfon() we expect to keep trailing spaces.!!
 
+    chomp $msg;
     return "$ENV{RC_INDENTATION} $msg";
 }
 
