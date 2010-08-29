@@ -15,9 +15,9 @@ use Exporter;
 use Term::ANSIColor qw(:constants);
 use Term::ANSIScreen qw(:cursor);
 
-our $VERSION = '1.3505';
+our $VERSION = '1.3600';
 
-our @EXPORT_OK = qw(einfo eerror ewarn ebegin eend eindent eoutdent einfon edie edo);
+our @EXPORT_OK = qw(einfo eerror ewarn ebegin eend eindent eoutdent einfon edie edo start_spinner step_spinner end_spinner);
 our %EXPORT_TAGS = (all=>[@EXPORT_OK]);
 
 use base qw(Exporter);
@@ -123,5 +123,39 @@ sub edo($&) {
     return $cr;
 }
 
+{
+    my $spinner_state;
+    my $spinner_msg;
+    sub start_spinner($) {
+        my $msg = wash(shift);
+
+        $spinner_state = "-";
+        $spinner_msg = $msg;
+
+        einfon $spinner_msg;
+    }
+
+    my $spinext = {"-"=>'\\', '\\'=>'|', "|"=>"/", "/"=>"-"};
+    sub step_spinner(;$) {
+        # NOTE: really I should use savepost and clline from ANSIScreen, but he doesn't have [0G at all.  Meh
+
+        print "\e[0G\e[K";
+
+        if( $_[0] ) {
+            einfon("$spinner_msg $spinner_state ... $_[0]");
+
+        } else {
+            einfon("$spinner_msg $spinner_state ");
+        }
+
+        $spinner_state = $spinext->{$spinner_state};
+    }
+
+    sub end_spinner($) {
+        print "\e[0G\e[K";
+        einfo $spinner_msg;
+        goto &eend;
+    }
+}
 
 "this file is true";

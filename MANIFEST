@@ -10,4 +10,5 @@ t/05_execute_things.t
 t/07_do_things.t
 t/09_test_edo_returns.t
 test_scripts/makefile_rmfile.pl
+test_scripts/spinner.pl
 test_scripts/test_edo_returns.pl

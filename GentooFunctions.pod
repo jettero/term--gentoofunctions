@@ -73,6 +73,20 @@ Minor caveat: L<edie|/DEATH> isn't catchable (see: L<eval|perlfunc/eval>) since
 it calls L<exit|perlfunc/exit>, therefore, inner death(s) should use
 L<die|perlfunc/die> rather than L<edie|/DEATH>.
 
+=head1 SPINNERS
+
+Strictly speaking, these functions aren't in the real Gentoo functions.sh
+script, but man they're handy.
+
+    use Time::HiRes qw(sleep);
+    start_spinner "testing the spinner";
+    for (1 .. 20) {
+        step_spinner; # spin the spinner
+        # step_spinner "$_/20"; # optional msg arg
+        sleep 0.1;
+    }
+    end_spinner 1; # works just like eend
+
 =head1 SHELL
 
 L<Term::GentooFunctions> will use C<RC_INDENTATION> and C<RC_DEFAULT_INDENT>
