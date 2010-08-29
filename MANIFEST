@@ -1,8 +1,8 @@
 Changes
 GentooFunctions.pm
 GentooFunctions.pod
-Makefile.PL
 MANIFEST
+Makefile.PL
 README
 t/01_load_them.t
 t/03_call_all.t
