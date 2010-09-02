@@ -4,6 +4,8 @@ use warnings;
 use Term::GentooFunctions qw(start_spinner step_spinner end_spinner);
 use Time::HiRes qw(sleep);
 
+equiet(1) if $ENV{SHH_QUIET};
+
 start_spinner "testing spinner";
 for( 1 .. 20 ) {
     step_spinner;

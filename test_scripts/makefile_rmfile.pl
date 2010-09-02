@@ -6,6 +6,8 @@ use strict;
 use warnings;
 use Term::GentooFunctions qw(:all);
 
+equiet(1) if $ENV{SHH_QUIET};
+
 edo "making file" => sub {
     open OUT, ">file" or die "CREATE ERROR: $!"; close OUT;
 

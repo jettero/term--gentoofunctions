@@ -1,3 +1,6 @@
+1.3600: Thu Sep 02 2010
+   - equiet() -- turns off the prints
+
 1.3600: Sun Aug 29 2010
    - spinners -- these aren't in /sbin/functions.sh, but they're
      handy.

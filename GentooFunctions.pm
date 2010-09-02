@@ -15,9 +15,9 @@ use Exporter;
 use Term::ANSIColor qw(:constants);
 use Term::ANSIScreen qw(:cursor);
 
-our $VERSION = '1.3600';
+our $VERSION = '1.3605';
 
-our @EXPORT_OK = qw(einfo eerror ewarn ebegin eend eindent eoutdent einfon edie edo start_spinner step_spinner end_spinner);
+our @EXPORT_OK = qw(einfo eerror ewarn ebegin eend eindent eoutdent einfon edie edo start_spinner step_spinner end_spinner equiet);
 our %EXPORT_TAGS = (all=>[@EXPORT_OK]);
 
 use base qw(Exporter);
@@ -29,6 +29,11 @@ BEGIN {
     $ENV{RC_INDENTATION}    = "" unless defined $ENV{RC_INDENTATION};
 }
 
+my $quiet;
+sub equiet {
+    $quiet = $_[0] if @_;
+    return $quiet;
+}
 
 sub edie(@) {
     my $msg = (@_>0 ? shift : $_);
@@ -39,6 +44,8 @@ sub edie(@) {
 
 sub einfon($) {
     my $msg = wash(shift);
+
+    return if $quiet;
 
     local $| = 1;
     print " ", BOLD, GREEN, "*", RESET, $msg;
@@ -67,6 +74,7 @@ sub wash($) {
 sub einfo($) {
     my $msg = wash(shift);
 
+    return if $quiet;
     print " ", BOLD, GREEN, "*", RESET, "$msg\n";
 }
 
@@ -77,17 +85,21 @@ sub ebegin($) {
 sub eerror($) {
     my $msg = wash(shift);
 
+    return if $quiet;
     print " ", BOLD, RED, "*", RESET, "$msg\n";
 }
 
 sub ewarn($) {
     my $msg = wash(shift);
 
+    return if $quiet;
     print " ", BOLD, YELLOW, "*", RESET, "$msg\n";
 }
 
 sub eend(@) {
     my $res = (@_>0 ? shift : $_);
+
+    return if $quiet;
 
     my ($columns, $rows) = eval 'Term::Size::chars *STDOUT{IO}';
        ($columns, $rows) = eval 'Term::Size::Win32::chars *STDOUT{IO}' if $@;
@@ -139,6 +151,7 @@ sub edo($&) {
     sub step_spinner(;$) {
         # NOTE: really I should use savepost and clline from ANSIScreen, but he doesn't have [0G at all.  Meh
 
+        return if $quiet;
         print "\e[0G\e[K";
 
         if( $_[0] ) {
@@ -152,6 +165,7 @@ sub edo($&) {
     }
 
     sub end_spinner($) {
+        return if $quiet;
         print "\e[0G\e[K";
         einfo $spinner_msg;
         goto &eend;

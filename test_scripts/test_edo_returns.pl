@@ -7,6 +7,8 @@ use warnings;
 use Term::GentooFunctions qw(:all);
 use Data::Dumper;
 
+equiet(1) if $ENV{SHH_QUIET};
+
 my $r1 = edo "list2sclr returns " => sub { return (1,2,3,4) };
 einfo Dumper(\$r1);
 
