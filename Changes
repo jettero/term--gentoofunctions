@@ -1,3 +1,7 @@
+1.3606: Mon Oct 04 2010
+   - the edo() auto-eindents have always bugged me... made them
+     work how I expect.
+
 1.3600: Thu Sep 02 2010
    - equiet() -- turns off the prints
 

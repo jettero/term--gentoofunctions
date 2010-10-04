@@ -15,7 +15,7 @@ use Exporter;
 use Term::ANSIColor qw(:constants);
 use Term::ANSIScreen qw(:cursor);
 
-our $VERSION = '1.3605';
+our $VERSION = '1.3606';
 
 our @EXPORT_OK = qw(einfo eerror ewarn ebegin eend eindent eoutdent einfon edie edo start_spinner step_spinner end_spinner equiet);
 our %EXPORT_TAGS = (all=>[@EXPORT_OK]);
@@ -113,22 +113,18 @@ sub eend(@) {
     $res;
 }
 
-my $do_depth = 0;
 sub edo($&) {
     my ($begin_msg, $code) = @_;
 
-    $do_depth ++;
-    eindent if $do_depth>1;
-
     ebegin $begin_msg;
+    eindent;
     my ($cr, @cr);
 
     my $wa = wantarray;
     my $r = eval { if( $wa ) { @cr = $code->() } else { $cr = $code->() } 1 };
     edie $@ unless $r;
 
-    eoutdent if $do_depth>1;
-    $do_depth --;
+    eoutdent;
     eend 1;
 
     return @cr if $wa;

@@ -108,9 +108,16 @@ I am using this software in my own projects...  If you find bugs, please
 please please let me know. :) Actually, let me know if you find it handy at
 all.  Half the fun of releasing this stuff is knowing that people use it.
 
-=head1 COPYRIGHT
+=head1 LICENSE
 
-Copyright (c) 2007-2009 Paul Miller
+Copyright (C) 2007-2010, Paul Miller,
+
+This module is free software.  You can redistribute it and/or
+modify it under the terms of the Artistic License 2.0.
+
+This program is distributed in the hope that it will be useful,
+but without any warranty; without even the implied warranty of
+merchantability or fitness for a particular purpose.
 
 =head1 SEE ALSO
 
