@@ -3,6 +3,7 @@ package Term::GentooFunctions;
 require 5.006001;
 
 use strict;
+use utf8;
 
 BEGIN {
     eval "use Term::Size;";               my $old = $@;
