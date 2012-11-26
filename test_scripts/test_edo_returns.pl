@@ -7,6 +7,8 @@ use warnings;
 use Term::GentooFunctions qw(:all);
 use Data::Dumper;
 
+$Data::Dumper::Sortkeys = "hell yes!!";
+
 equiet(1) if $ENV{SHH_QUIET};
 
 my $r1 = edo "list2sclr returns " => sub { return (1,2,3,4) };
