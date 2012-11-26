@@ -1,3 +1,6 @@
+1.3607: Mon Nov 26 2012
+   - updated test for 5.17.x
+
 1.3606: Mon Oct 04 2010
    - the edo() auto-eindents have always bugged me... made them
      work how I expect.
