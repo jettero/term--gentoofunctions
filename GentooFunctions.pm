@@ -16,10 +16,13 @@ use Exporter;
 use Term::ANSIColor qw(:constants);
 use Term::ANSIScreen qw(:cursor);
 
-our $VERSION = '1.3607';
+our $VERSION = '1.3608';
 
 our @EXPORT_OK = qw(einfo eerror ewarn ebegin eend eindent eoutdent einfon edie edo start_spinner step_spinner end_spinner equiet);
 our %EXPORT_TAGS = (all=>[@EXPORT_OK]);
+
+my $is_spinning = 0;
+my $post_spin_lines = 0;
 
 use base qw(Exporter);
 
@@ -132,6 +135,15 @@ sub edo($&) {
     return $cr;
 }
 
+sub _pre_print_during_spin {
+    print "\e[$post_spin_lines\E" if $post_spin_lines ++;
+    print "\n";
+}
+
+sub _post_print_during_spin {
+    print "\e[$post_spin_lines\F" if $post_spin_lines;
+}
+
 {
     my $spinner_state;
     my $spinner_msg;
@@ -140,6 +152,8 @@ sub edo($&) {
 
         $spinner_state = "-";
         $spinner_msg = $msg;
+
+        $is_spinning = $post_spin_lines = 0;
 
         einfon $spinner_msg;
     }
@@ -165,6 +179,7 @@ sub edo($&) {
         return if $quiet;
         print "\e[0G\e[K";
         einfo $spinner_msg;
+        $is_spinning = $post_spin_lines = 0;
         goto &eend;
     }
 }
