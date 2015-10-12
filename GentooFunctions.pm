@@ -41,6 +41,7 @@ sub equiet {
 
 sub edie(@) {
     my $msg = (@_>0 ? shift : $_);
+    _pre_print_during_spin() if $is_spinning;
     eerror($msg);
     eend(0);
     exit 0x65;
@@ -142,7 +143,8 @@ sub edo($&) {
 }
 
 sub _pre_print_during_spin {
-    unless( $post_spin_lines ) {
+    return if $post_spin_lines < 0; # when does this happen?? totally untested condition XXX
+    if( $post_spin_lines == 0 ) {
         print "\n"; $post_spin_lines ++;
     }
     print down($post_spin_lines++), "\e[0G\e[K";
@@ -191,12 +193,8 @@ sub _post_print_during_spin {
         $is_spinning = 0;
         print "\e[0G\e[K";
         einfo $spinner_msg;
-
-        if( $post_spin_lines ) {
-            $post_spin_lines --;
-            _pre_print_during_spin() if $post_spin_lines > 0;
-        }
-
+        $post_spin_lines --;
+        _pre_print_during_spin()
         $post_spin_lines = 0;
 
         goto &eend;
@@ -207,10 +205,8 @@ sub _post_print_during_spin {
             $is_spinning = 0;
             print "\e[0G\e[K";
             einfo $spinner_msg;
-            if( $post_spin_lines ) {
-                $post_spin_lines --;
-                _pre_print_during_spin() if $post_spin_lines > 0;
-            }
+            $post_spin_lines --;
+            _pre_print_during_spin();
         }
     }
 }
