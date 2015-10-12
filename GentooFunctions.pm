@@ -44,6 +44,7 @@ sub edie(@) {
     _pre_print_during_spin() if $is_spinning;
     eerror($msg);
     eend(0);
+    _post_print_during_spin() if $is_spinning;
     exit 0x65;
 }
 
