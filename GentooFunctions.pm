@@ -52,7 +52,6 @@ sub einfon($) {
     return if $quiet;
 
     local $| = 1;
-    _pre_print_during_spin() if $is_spinning;
     print " ", BOLD, GREEN, "*", RESET, $msg;
 }
 
@@ -143,15 +142,15 @@ sub edo($&) {
 }
 
 sub _pre_print_during_spin {
-    eindent();
-    print down($post_spin_lines), "\n";
-    $post_spin_lines ++;
+    unless( $post_spin_lines ) {
+        print "\n"; $post_spin_lines ++;
+    }
+    print down($post_spin_lines++), "\e[0G\e[K";
 }
 
 sub _post_print_during_spin {
     local $| = 1;
     print up($post_spin_lines);
-    eoutdent();
 }
 
 {
@@ -188,9 +187,18 @@ sub _post_print_during_spin {
 
     sub end_spinner($) {
         return if $quiet;
+
+        $is_spinning = 0;
         print "\e[0G\e[K";
         einfo $spinner_msg;
-        $is_spinning = $post_spin_lines = 0;
+
+        if( $post_spin_lines ) {
+            $post_spin_lines --;
+            _pre_print_during_spin();
+        }
+
+        $post_spin_lines = 0;
+
         goto &eend;
     }
 }
