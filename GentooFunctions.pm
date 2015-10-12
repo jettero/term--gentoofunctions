@@ -144,9 +144,12 @@ sub edo($&) {
 
 sub _pre_print_during_spin {
     return if $post_spin_lines < 0; # when does this happen?? totally untested condition XXX
+
     if( $post_spin_lines == 0 ) {
-        print "\n"; $post_spin_lines ++;
+        print "\n";
+        $post_spin_lines ++;
     }
+
     print down($post_spin_lines++), "\e[0G\e[K";
 }
 
@@ -194,7 +197,7 @@ sub _post_print_during_spin {
         print "\e[0G\e[K";
         einfo $spinner_msg;
         $post_spin_lines --;
-        _pre_print_during_spin()
+        _pre_print_during_spin();
         $post_spin_lines = 0;
 
         goto &eend;
