@@ -194,12 +194,24 @@ sub _post_print_during_spin {
 
         if( $post_spin_lines ) {
             $post_spin_lines --;
-            _pre_print_during_spin();
+            _pre_print_during_spin() if $post_spin_lines > 0;
         }
 
         $post_spin_lines = 0;
 
         goto &eend;
+    }
+
+    END {
+        if( $is_spinning ) {
+            $is_spinning = 0;
+            print "\e[0G\e[K";
+            einfo $spinner_msg;
+            if( $post_spin_lines ) {
+                $post_spin_lines --;
+                _pre_print_during_spin() if $post_spin_lines > 0;
+            }
+        }
     }
 }
 

@@ -46,3 +46,20 @@ for( 1 .. 20 ) {
 }
 end_spinner 1;
 
+start_spinner "testing spinner - test#5: with multiple prints per step (2\@3, 3\@7)";
+for( 1 .. 20 ) {
+    step_spinner "$_/20";
+    if( $_ == 3 ) { einfo "1/2 \@3"; einfo "2/2 \@3"; }
+    if( $_ == 7 ) { einfo "1/3 \@7"; einfo "2/3 \@7"; einfo "3/3 \@7"; }
+    sleep 0.1;
+}
+end_spinner 1;
+
+start_spinner "testing spinner - test#6: exit early (\@7)";
+for( 1 .. 20 ) {
+    step_spinner "$_/20";
+    exit if $_ == 7;
+    sleep 0.1;
+}
+end_spinner 1;
+
