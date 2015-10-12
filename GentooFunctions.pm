@@ -52,6 +52,7 @@ sub einfon($) {
     return if $quiet;
 
     local $| = 1;
+    _pre_print_during_spin() if $is_spinning;
     print " ", BOLD, GREEN, "*", RESET, $msg;
 }
 
@@ -79,7 +80,9 @@ sub einfo($) {
     my $msg = wash(shift);
 
     return if $quiet;
+    _pre_print_during_spin() if $is_spinning;
     print " ", BOLD, GREEN, "*", RESET, "$msg\n";
+    _post_print_during_spin() if $is_spinning;
 }
 
 sub ebegin($) {
@@ -90,14 +93,18 @@ sub eerror($) {
     my $msg = wash(shift);
 
     return if $quiet;
+    _pre_print_during_spin() if $is_spinning;
     print " ", BOLD, RED, "*", RESET, "$msg\n";
+    _post_print_during_spin() if $is_spinning;
 }
 
 sub ewarn($) {
     my $msg = wash(shift);
 
     return if $quiet;
+    _pre_print_during_spin() if $is_spinning;
     print " ", BOLD, YELLOW, "*", RESET, "$msg\n";
+    _post_print_during_spin() if $is_spinning;
 }
 
 sub eend(@) {
