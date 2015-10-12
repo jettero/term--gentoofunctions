@@ -144,7 +144,6 @@ sub edo($&) {
 
 sub _pre_print_during_spin {
     eindent();
-    local $| = 1;
     print "\e[$post_spin_lines\E" if $post_spin_lines ++;
     print "\n";
 }
@@ -164,7 +163,8 @@ sub _post_print_during_spin {
         $spinner_state = "-";
         $spinner_msg = $msg;
 
-        $is_spinning = $post_spin_lines = 0;
+        $is_spinning = 1;
+        $post_spin_lines = 0;
 
         einfon $spinner_msg;
     }
