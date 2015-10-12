@@ -41,10 +41,9 @@ sub equiet {
 
 sub edie(@) {
     my $msg = (@_>0 ? shift : $_);
-    _pre_print_during_spin() if $is_spinning;
     eerror($msg);
     eend(0);
-    $is_spinning = $post_spin_lines = 0 if $is_spinning;
+    $is_spinning = 0;
     exit 0x65;
 }
 
