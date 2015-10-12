@@ -43,6 +43,7 @@ sub edie(@) {
     my $msg = (@_>0 ? shift : $_);
     eerror($msg);
     eend(0);
+    _pre_print_during_spin() if $is_spinning;
     $is_spinning = 0;
     exit 0x65;
 }
