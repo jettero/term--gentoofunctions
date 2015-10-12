@@ -144,13 +144,13 @@ sub edo($&) {
 
 sub _pre_print_during_spin {
     eindent();
-    print "\e[$post_spin_lines\E" if $post_spin_lines ++;
+    print down($post_spin_lines) if $post_spin_lines ++;
     print "\n";
 }
 
 sub _post_print_during_spin {
     local $| = 1;
-    print "\e[$post_spin_lines\F" if $post_spin_lines ++;
+    print up($post_spin_lines) if $post_spin_lines;
     eoutdent();
 }
 
