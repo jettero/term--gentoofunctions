@@ -16,7 +16,6 @@ WriteMakefile(
     'PREREQ_PM'    => { 
         $termsize          => 0,
         'Term::ANSIColor'  => 0,
-        'Term::ANSIScreen' => 0,
     },
 
     ($ExtUtils::MakeMaker::VERSION ge '6.48'? 
