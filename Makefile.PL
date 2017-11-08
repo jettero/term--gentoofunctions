@@ -12,7 +12,7 @@ if( $^O =~ m/Win32/i ) {
 
 WriteMakefile(
     'NAME'         => 'Term::GentooFunctions',
-    'VERSION_FROM' => 'GentooFunctions.pm',
+    'VERSION_FROM' => 'lib/Term/GentooFunctions.pm',
     'PREREQ_PM'    => { 
         $termsize          => 0,
         'Term::ANSIColor'  => 0,
