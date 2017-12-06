@@ -14,7 +14,6 @@ BEGIN {
 
 use Exporter;
 use Term::ANSIColor qw(:constants);
-use Term::ANSIScreen qw(:cursor);
 
 our $VERSION = '1.3608';
 
@@ -25,6 +24,77 @@ my $is_spinning = 0;
 my $post_spin_lines = 0;
 
 use base qw(Exporter);
+
+# Lifted from Term::ANSIScreen (RT #123497)
+# -- Sawyer X
+our $AUTORESET;
+
+# Lifted and adjusted from Term::ANSIScreen (RT #123497)
+# -- Sawyer X
+BEGIN {
+    my %attributes = (
+        'clear'      => 0,    'reset'      => 0,
+        'bold'       => 1,    'dark'       => 2,
+        'underline'  => 4,    'underscore' => 4,
+        'blink'      => 5,    'reverse'    => 7,
+        'concealed'  => 8,
+
+        'black'      => 30,   'on_black'   => 40,
+        'red'        => 31,   'on_red'     => 41,
+        'green'      => 32,   'on_green'   => 42,
+        'yellow'     => 33,   'on_yellow'  => 43,
+        'blue'       => 34,   'on_blue'    => 44,
+        'magenta'    => 35,   'on_magenta' => 45,
+        'cyan'       => 36,   'on_cyan'    => 46,
+        'white'      => 37,   'on_white'   => 47,
+    );
+
+    my %sequences = (
+        'up'        => '?A',      'down'      => '?B',
+        'right'     => '?C',      'left'      => '?D',
+        'savepos'   => 's',       'loadpos'   => 'u',
+        'cls'       => '2J',      'clline'    => 'K',
+        'cldown'    => '0J',      'clup'      => '1J',
+        'locate'    => '?;?H',    'setmode'   => '?h',
+        'wrapon'    => '7h',      'wrapoff'   => '7l',
+        'setscroll' => '?;?r',
+    );
+
+    my $enable_colors = !defined $ENV{ANSI_COLORS_DISABLED};
+    no strict 'refs';
+    no warnings 'uninitialized';
+
+    foreach my $sub ( keys %sequences ) {
+        my $seq = $sequences{$sub};
+        *{"Term::GentooFunctions::$sub"} = sub {
+            return '' unless $enable_colors;
+
+            $seq =~ s/\?/defined($_[0]) ? shift(@_) : 1/eg;
+            return((defined wantarray) ? "\e[$seq"
+                                       : print("\e[$seq"));
+        };
+    }
+
+    foreach my $sub ( keys %attributes ) {
+        my $attr = $attributes{lc($sub)};
+        my $sub_name = uc($sub);
+        *{"Term::GentooFunctions::$sub_name"} = sub {
+            if (defined($attr) and $sub_name =~ /^[A-Z_]+$/) {
+                my $out = "@_";
+                if ($enable_colors) {
+                    $out = "\e[${attr}m" . $out;
+                    $out .= "\e[0m" if ($AUTORESET and @_ and $out !~ /\e\[0m$/s);
+                }
+                return((defined wantarray) ? $out
+                                           : print($out));
+            }
+            else {
+                require Carp;
+                Carp::croak("Undefined subroutine &$sub ($sub_name) called");
+            }
+        };
+    }
+}
 
 BEGIN {
     # use Data::Dumper;
