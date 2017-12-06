@@ -15,7 +15,7 @@ BEGIN {
 use Exporter;
 use Term::ANSIColor qw(:constants);
 
-our $VERSION = '1.3608';
+our $VERSION = '1.3700';
 
 our @EXPORT_OK = qw(einfo eerror ewarn ebegin eend eindent eoutdent einfon edie edo start_spinner step_spinner end_spinner equiet);
 our %EXPORT_TAGS = (all=>[@EXPORT_OK]);
